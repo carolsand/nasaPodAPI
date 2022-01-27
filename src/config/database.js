@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
+mongoose.connect(
+  'mongodb://localhost:27017/nasapods',
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  });
 
-// database connection event
-mongoose.connection.on("connected", function () {
-  console.log(`Mongoose connected to: ${mongoose.connection.host}`);
+const db = mongoose.connection;
+
+db.on('connected', function(){
+  console.log(`Connectd to MongoDB at ${db.host}:${db.port}`);
 });
-
-module.exports = mongoose;
