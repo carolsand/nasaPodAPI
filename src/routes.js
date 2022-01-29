@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
+import { sequelize } from "./database";
 
 /* --------- CRUD Users ------- */
 // router.post("/users", (req, res) => {
@@ -24,7 +25,7 @@ var router = express.Router();
 // });
 
 router.get('/users', (req, res) => {
-  return db.User.findAll()
+  return sequelize.models.user.findAll()
     .then((users) => res.send(users))
     .catch((err) => {
       console.log('There was an error querying users', JSON.stringify(err))

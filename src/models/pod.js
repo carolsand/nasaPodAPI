@@ -1,12 +1,16 @@
+import { sequelize } from "../database";
 
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Model, DataTypes } = require('sequelize');
 
 class Pod extends Model {}
 Pod.init({
-  id: DataType.STRING,
-  podname: DataType.STRING
-  rating: DataType.STRING,
+  id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+  },
+  podname: DataTypes.STRING,
+  rating: DataTypes.STRING,
 }, { sequelize, modelName: 'pod' });
 
 (async () => {
