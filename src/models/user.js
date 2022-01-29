@@ -1,10 +1,15 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+import { sequelize } from "../database";
+
+const { Model, DataTypes } = require('sequelize');
 
 class User extends Model {}
 User.init({
   username: DataTypes.STRING,
-  id: DataTypes.STRING,
+  id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+  },
   email: DataTypes.STRING
 }, { sequelize, modelName: 'user' });
 
