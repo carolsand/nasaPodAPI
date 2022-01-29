@@ -8,6 +8,7 @@
 .idea/
 .history/
 database.sqlite3
+package-lock.json
 
 # Packages #
  ############
