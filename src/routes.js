@@ -35,7 +35,7 @@ router.get('/users', (req, res) => {
 
 router.post('/users', (req, res) => {
   const { firstName, lastName } = req.body
-  return db.User.create({ firstName, lastName })
+  return sequelize.models.user.create({ firstName, lastName })
     .then((user) => res.send(user))
     .catch((err) => {
       console.log('***There was an error creating a users', JSON.stringify(contact))
@@ -45,7 +45,7 @@ router.post('/users', (req, res) => {
 
 router.delete('/user/:id', (req, res) => {
   const id = parseInt(req.params.id)
-  return db.User.findById(id)
+  return sequelize.models.user.findById(id)
     .then((user) => user.destroy({ force: true }))
     .then(() => res.send({ id }))
     .catch((err) => {
@@ -56,7 +56,7 @@ router.delete('/user/:id', (req, res) => {
 
 router.put('/user/:id', (req, res) => {
   const id = parseInt(req.params.id)
-  return db.User.findById(id)
+  return sequelize.models.user.findById(id)
   .then((user) => {
     const { firstName, lastName } = req.body
     return user.update({ firstName, lastName })
@@ -79,7 +79,7 @@ router.get("/picture/:pictureId", (req, res) => {
 });
 
 router.get('/pods', (req, res) => {
-  return db.Pod.findAll()
+  return sequelize.models.pod.findAll()
     .then((pods) => res.send(pods))
     .catch((err) => {
       console.log('There was an error querying pods', JSON.stringify(err))
@@ -89,7 +89,7 @@ router.get('/pods', (req, res) => {
 
 router.post('/pods', (req, res) => {
   const { id, stars } = req.body
-  return db.Pod.create({ id, stars })
+  return sequelize.models.pod.create({ id, stars })
     .then((pod) => res.send(pod))
     .catch((err) => {
       console.log('***There was an error creating a rating', JSON.stringify(contact))
@@ -99,7 +99,7 @@ router.post('/pods', (req, res) => {
 
 router.delete('/pod/:id', (req, res) => {
   const id = parseInt(req.params.id)
-  return db.Pod.findById(id)
+  return sequelize.models.pod.findById(id)
     .then((pod) => pod.destroy({ force: true }))
     .then(() => res.send({ id }))
     .catch((err) => {
@@ -110,7 +110,7 @@ router.delete('/pod/:id', (req, res) => {
 
 router.put('/pod/:id', (req, res) => {
   const id = parseInt(req.params.id)
-  return db.Pod.findById(id)
+  return sequelize.models.pod.findById(id)
   .then((pod) => {
     const { id, stars } = req.body
     return rating.update({ id })
@@ -146,7 +146,7 @@ router.get("/user/:userId/ratings", (req, res) => {
 });
 
 // router.get('/api/ratings', (req, res) => {
-//   return db.Rating.findAll()
+//   return sequelize.models.rating.findAll()
 //     .then((ratings) => res.send(ratings))
 //     .catch((err) => {
 //       console.log('There was an error querying users', JSON.stringify(err))
@@ -156,7 +156,7 @@ router.get("/user/:userId/ratings", (req, res) => {
 
 // router.post('/api/ratings', (req, res) => {
 //   const { id, stars } = req.body
-//   return db.Rating.create({ id, stars })
+//   return sequelize.models.rating.create({ id, stars })
 //     .then((rating) => res.send(rating))
 //     .catch((err) => {
 //       console.log('***There was an error creating a rating', JSON.stringify(contact))
@@ -166,7 +166,7 @@ router.get("/user/:userId/ratings", (req, res) => {
 
 // router.delete('/api/rating/:id', (req, res) => {
 //   const id = parseInt(req.params.id)
-//   return db.Rating.findById(id)
+//   return sequelize.models.rating.findById(id)
 //     .then((rating) => rating.destroy({ force: true }))
 //     .then(() => res.send({ id }))
 //     .catch((err) => {
@@ -177,7 +177,7 @@ router.get("/user/:userId/ratings", (req, res) => {
 
 // router.put('/api/rating/:id', (req, res) => {
 //   const id = parseInt(req.params.id)
-//   return db.Rating.findById(id)
+//   return sequelize.models.rating.findById(id)
 //   .then((rating) => {
 //     const { id, stars } = req.body
 //     return rating.update({ id })
