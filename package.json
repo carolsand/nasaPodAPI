@@ -16,6 +16,7 @@
     "express": "^4.17.2",
     "mongoose": "^6.1.8",
     "nodemon": "^2.0.15",
+    "sqlite": "^4.0.23",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
