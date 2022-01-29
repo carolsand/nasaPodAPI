@@ -127,9 +127,44 @@ router.put('/pod/:id', (req, res) => {
   });
 
 /* --------- CRUD Ratings ------- */
-router.post("/user/:userId/picture/:pictureId/rating", (req, res) => {
-  const id = uuidv4();
+router.post("/user/:userId/picture/:pictureId/rating", async (req, res) => {
   // TODO: create a rating by the given user for the given picture.
+    const { userId, pictureId } = req.params;
+    const user = await sequelize.models.user.findById(userId);
+    if (!user) {
+        console.log('No user with id of', userId);
+        return res.send({});
+    }
+    const pod = await getPod(pictureId);
+    if (!pod) {
+        console.log('No pod with id of', pictureId);
+        return res.send({});
+    }
+
+    const stars = req.body.stars;
+    if (!stars) {
+        console.log('No stars in request body');
+        return res.send({});
+    }
+
+    const [rating, created] = await sequelize.models.rating.findOrCreate({
+        where: {user_id: userId, pod_id: podId},
+        defaults: {
+            user_id: userId,
+            pod_id: podId,
+            stars: stars
+        }
+    });
+
+    // If we found an outdated record, update it
+    if (!created && rating.stars !== stars) {
+        await sequelize.models.rating.update({
+            stars: stars
+        },{
+            where: { id: rating.id }
+        });
+    }
+    return res.send(rating);
 });
 
 router.get("/user/:userId/picture/:pictureId/rating", (req, res) => {
