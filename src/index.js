@@ -1,6 +1,8 @@
 import express from "express";
 
 const app = express();
+const bodyParser = require('body-parser');
+const db require('./models');
 
 /* ----------- Imports ------------- */
 import "dotenv/config";
