@@ -9,7 +9,6 @@ Pod.init({
       primaryKey: true,
   },
   podname: DataTypes.STRING,
-  rating: DataTypes.STRING,
   url: DataTypes.STRING,
   media_type: DataTypes.STRING,
   explanation: DataTypes.STRING,
