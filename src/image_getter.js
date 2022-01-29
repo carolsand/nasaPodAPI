@@ -34,6 +34,7 @@ async function getImage(url) {
 export default async function getPod(date) {
   const db_pod = await sequelize.models.pod.findByPk(date);
   if (db_pod) {
+    console.log(`Found ${date} in database.`);
     return db_pod;
   }
 
@@ -46,7 +47,10 @@ export default async function getPod(date) {
   if (!result) {
     return null;
   }
+  result.id = result.date;
+  result.podname = result.title;
 
   await sequelize.models.pod.create(result);
+  console.log(`Added ${result.id} to the database.`);
   return result
 };

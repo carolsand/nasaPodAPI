@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+import getPod from "./image_getter";
 import { sequelize } from "./database";
 
 /* --------- CRUD Users ------- */
@@ -76,6 +77,9 @@ router.get("/pictures", (req, res) => {
 
 router.get("/picture/:pictureId", (req, res) => {
   // TODO: Return all pictures, with URL and ID
+    getPod(req.params.pictureId).then((pod) => {
+        res.send(pod)
+    }).catch(console.log);
 });
 
 router.get('/pods', (req, res) => {
