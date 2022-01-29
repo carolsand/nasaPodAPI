@@ -5,12 +5,14 @@ const { Model, DataTypes } = require('sequelize');
 class Pod extends Model {}
 Pod.init({
   id: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
   },
   podname: DataTypes.STRING,
   rating: DataTypes.STRING,
+  url: DataTypes.STRING,
+  media_type: DataTypes.STRING,
+  explanation: DataTypes.STRING,
 }, { sequelize, modelName: 'pod' });
 
 (async () => {
