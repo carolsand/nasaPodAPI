@@ -56,9 +56,16 @@ router.put("/user/:id", (req, res) => {
 });
 
 /* --------- Read pictures ------- */
-router.get("/pictures", (req, res) => {
+router.get("/pictures", async (req, res) => {
   // TODO: Return all pictures, with URL and ID
-  const picture = req.params.id();
+  const pictures = await sequelize.models.pictures;
+  return sequelize.models.pictures
+    .findAll()
+    .then((pictures) => res.send(pictures))
+    .catch((err) => {
+      console.log("There was an error querying pictures", JSON.stringify(err));
+      return res.send(err);
+    });
 });
 
 router.get("/picture/:pictureId", (req, res) => {
