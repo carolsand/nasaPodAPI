@@ -11,49 +11,50 @@ router.get("/users", (req, res) => {
   return res.send(Object.values(users));
 });
 
-router.get("/users/:userId", (req, res) => {
+router.get("/user/:userId", (req, res) => {
   return res.send(users[req.params.userId]);
 });
 
-router.put("/users/:userId", (req, res) => {
+router.put("/user/:userId", (req, res) => {
   return res.send(`PUT HTTP method on user/${req.params.userId} resource`);
 });
 
-router.delete("/users/:userId", (req, res) => {
+router.delete("/user/:userId", (req, res) => {
   return res.send(`DELETE HTTP method on user/${req.params.userId} resource`);
 });
 
 
-/* --------- CRUD Messages ------- */
-router.post("/messages", (req, res) => {
+/* --------- Read pictures ------- */
+router.get("/pictures", (req, res) => {
+  // TODO: Return all pictures, with URL and ID
+});
+
+router.get("/picture/:pictureId", (req, res) => {
+  // TODO: Return all pictures, with URL and ID
+});
+
+
+/* --------- CRUD Ratings ------- */
+router.post("/user/:userId/picture/:pictureId/rating", (req, res) => {
   const id = uuidv4();
-  const message = {
-    id,
-    text: req.body.text,
-    userId: req.me.id,
-  };
-
-  const date = Date.parse(req.body.date);
-  const count = Number(req.body.count);
-
-  messages[id] = message;
-  return res.send(message);
+  // TODO: create a rating by the given user for the given picture.
 });
 
-router.get("/users/:messageId", (req, res) => {
-  return res.send(messages[req.params.messageId]);
+router.get("/user/:userId/picture/:pictureId/rating", (req, res) => {
+  // TODO: read the rating by the given user for the given picture.
 });
 
-router.get("/messages", (req, res) => {
-  return res.send(Object.values(messages));
+router.put("/user/:userId/picture/:pictureId/rating", (req, res) => {
+  // TODO: update the rating by the given user for the given picture.
 });
 
-router.delete("/messages/:messageId", (req, res) => {
-  const { [req.params.messageId]: message, ...otherMessages } = messages;
+router.delete("/user/:userId/picture/:pictureId/rating", (req, res) => {
+  // TODO: delete the rating by the given user for the given picture.
+});
 
-  messages = otherMessages;
-
-  return res.send(message);
+router.get("/user/:userId/ratings", (req, res) => {
+  // TODO: Get all the user's ratings.
+  // Returns the picture name, id and rating for each rating
 });
 
 /* ---------- Other routes -----------*/

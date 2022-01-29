@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   req.context = {
     models,
-    me: models.users[1],
+    // me: models.users[1],  // TODO: Look up the user
   };
   next();
 });
