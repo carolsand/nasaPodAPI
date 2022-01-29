@@ -93,7 +93,7 @@
  tags
 
  # Python #
- #######
+ ##########
  *.pyc
  __pycache__/
 node_modules
@@ -109,3 +109,8 @@ yarn-error.log*
 /.changelog
 .npm/
 yarn.lock
+
+ # Swap files #
+ ##############
+
+*.swp
