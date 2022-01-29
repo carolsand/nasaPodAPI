@@ -3,26 +3,27 @@ var router = express.Router();
 
 
 /* --------- CRUD Users ------- */
-router.post("/users", (req, res) => {
-  return res.send("POST HTTP method on user resource");
-});
+// router.post("/users", (req, res) => {
+//   return res.send("POST HTTP method on user resource");
+// });
 
-router.get("/users", (req, res) => {
-  return res.send(Object.values(users));
-});
+// router.get("/users", (req, res) => {
+//   return res.send(Object.values(users));
+// });
 
-router.get("/user/:userId", (req, res) => {
-  return res.send(users[req.params.userId]);
-});
+// router.get("/user/:userId", (req, res) => {
+//   return res.send(users[req.params.userId]);
+// });
 
-router.put("/user/:userId", (req, res) => {
-  return res.send(`PUT HTTP method on user/${req.params.userId} resource`);
-});
+// router.put("/user/:userId", (req, res) => {
+//   return res.send(`PUT HTTP method on user/${req.params.userId} resource`);
+// });
 
-router.delete("/user/:userId", (req, res) => {
-  return res.send(`DELETE HTTP method on user/${req.params.userId} resource`);
-});
-app.get('/api/users', (req, res) => {
+// router.delete("/user/:userId", (req, res) => {
+//   return res.send(`DELETE HTTP method on user/${req.params.userId} resource`);
+// });
+
+router.get('/users', (req, res) => {
   return db.User.findAll()
     .then((users) => res.send(users))
     .catch((err) => {
@@ -31,7 +32,7 @@ app.get('/api/users', (req, res) => {
     });
 });
 
-app.post('/api/users', (req, res) => {
+router.post('/users', (req, res) => {
   const { firstName, lastName } = req.body
   return db.User.create({ firstName, lastName })
     .then((user) => res.send(user))
@@ -41,7 +42,7 @@ app.post('/api/users', (req, res) => {
     })
 });
 
-app.delete('/api/user/:id', (req, res) => {
+router.delete('/user/:id', (req, res) => {
   const id = parseInt(req.params.id)
   return db.User.findById(id)
     .then((user) => user.destroy({ force: true }))
@@ -52,7 +53,7 @@ app.delete('/api/user/:id', (req, res) => {
     })
 });
 
-app.put('/api/user/:id', (req, res) => {
+router.put('/user/:id', (req, res) => {
   const id = parseInt(req.params.id)
   return db.User.findById(id)
   .then((user) => {
@@ -76,7 +77,7 @@ router.get("/picture/:pictureId", (req, res) => {
   // TODO: Return all pictures, with URL and ID
 });
 
-app.get('/api/pods', (req, res) => {
+router.get('/pods', (req, res) => {
   return db.Pod.findAll()
     .then((pods) => res.send(pods))
     .catch((err) => {
@@ -85,7 +86,7 @@ app.get('/api/pods', (req, res) => {
     });
 });
 
-app.post('/api/pods', (req, res) => {
+router.post('/pods', (req, res) => {
   const { id, stars } = req.body
   return db.Pod.create({ id, stars })
     .then((pod) => res.send(pod))
@@ -95,7 +96,7 @@ app.post('/api/pods', (req, res) => {
     })
 });
 
-app.delete('/api/pod/:id', (req, res) => {
+router.delete('/pod/:id', (req, res) => {
   const id = parseInt(req.params.id)
   return db.Pod.findById(id)
     .then((pod) => pod.destroy({ force: true }))
@@ -106,7 +107,7 @@ app.delete('/api/pod/:id', (req, res) => {
     })
 });
 
-app.put('/api/pod/:id', (req, res) => {
+router.put('/pod/:id', (req, res) => {
   const id = parseInt(req.params.id)
   return db.Pod.findById(id)
   .then((pod) => {
@@ -143,48 +144,48 @@ router.get("/user/:userId/ratings", (req, res) => {
   // Returns the picture name, id and rating for each rating
 });
 
-app.get('/api/ratings', (req, res) => {
-  return db.Rating.findAll()
-    .then((ratings) => res.send(ratings))
-    .catch((err) => {
-      console.log('There was an error querying users', JSON.stringify(err))
-      return res.send(err)
-    });
-});
+// router.get('/api/ratings', (req, res) => {
+//   return db.Rating.findAll()
+//     .then((ratings) => res.send(ratings))
+//     .catch((err) => {
+//       console.log('There was an error querying users', JSON.stringify(err))
+//       return res.send(err)
+//     });
+// });
 
-app.post('/api/ratings', (req, res) => {
-  const { id, stars } = req.body
-  return db.Rating.create({ id, stars })
-    .then((rating) => res.send(rating))
-    .catch((err) => {
-      console.log('***There was an error creating a rating', JSON.stringify(contact))
-      return res.status(400).send(err)
-    })
-});
+// router.post('/api/ratings', (req, res) => {
+//   const { id, stars } = req.body
+//   return db.Rating.create({ id, stars })
+//     .then((rating) => res.send(rating))
+//     .catch((err) => {
+//       console.log('***There was an error creating a rating', JSON.stringify(contact))
+//       return res.status(400).send(err)
+//     })
+// });
 
-app.delete('/api/rating/:id', (req, res) => {
-  const id = parseInt(req.params.id)
-  return db.Rating.findById(id)
-    .then((rating) => rating.destroy({ force: true }))
-    .then(() => res.send({ id }))
-    .catch((err) => {
-      console.log('***Error deleting rating', JSON.stringify(err))
-      res.status(400).send(err)
-    })
-});
+// router.delete('/api/rating/:id', (req, res) => {
+//   const id = parseInt(req.params.id)
+//   return db.Rating.findById(id)
+//     .then((rating) => rating.destroy({ force: true }))
+//     .then(() => res.send({ id }))
+//     .catch((err) => {
+//       console.log('***Error deleting rating', JSON.stringify(err))
+//       res.status(400).send(err)
+//     })
+// });
 
-app.put('/api/rating/:id', (req, res) => {
-  const id = parseInt(req.params.id)
-  return db.Rating.findById(id)
-  .then((rating) => {
-    const { id, stars } = req.body
-    return rating.update({ id })
-      .then(() => res.send(rating))
-      .catch((err) => {
-        console.log('***Error updating rating', JSON.stringify(err))
-        res.status(400).send(err)
-      })
-  });
+// router.put('/api/rating/:id', (req, res) => {
+//   const id = parseInt(req.params.id)
+//   return db.Rating.findById(id)
+//   .then((rating) => {
+//     const { id, stars } = req.body
+//     return rating.update({ id })
+//       .then(() => res.send(rating))
+//       .catch((err) => {
+//         console.log('***Error updating rating', JSON.stringify(err))
+//         res.status(400).send(err)
+//       })
+//   });
+// });
 
 module.exports = router;
-});
