@@ -1,8 +1,9 @@
 import express from "express";
 
 const app = express();
-const bodyParser = require('body-parser');
-const db require('./models');
+import bodyParser from "body-parser";
+// const bodyParser = require('body-parser');
+// const db require('./models');
 
 /* ----------- Imports ------------- */
 import "dotenv/config";
@@ -34,7 +35,7 @@ app.listen(port, () =>
   console.log(`NASA Pod API app listening on port ${port}!`)
 );
 
-app.use('/', router);
+app.use('/api', router);
 
 
 app.get('/testGetPod/:id?', (req, res) => {
