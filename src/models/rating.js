@@ -16,4 +16,10 @@ Rating.init({
 
 (async () => {
   await sequelize.sync();
+    const rating = await Rating.create({
+        user_id: 'asdf',
+        pod_id: '2022-01-29',
+        stars: 3,
+    });
+    console.log(rating.toJSON());
 })();

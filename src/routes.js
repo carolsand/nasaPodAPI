@@ -179,9 +179,20 @@ router.delete("/user/:userId/picture/:pictureId/rating", (req, res) => {
   // TODO: delete the rating by the given user for the given picture.
 });
 
-router.get("/user/:userId/ratings", (req, res) => {
+router.get("/user/:userId/ratings", async (req, res) => {
   // TODO: Get all the user's ratings.
   // Returns the picture name, id and rating for each rating
+    const { userId } = req.params;
+    let results = await sequelize.models.rating.findAll({
+        where: { user_id: userId }
+    });
+    console.log(results);
+
+    // If the result is empty, return an empty list instead
+    if (results && Object.keys(results).length === 0) {
+        return res.send([]);
+    }
+    return res.send(results);
 });
 
 // router.get('/api/ratings', (req, res) => {
