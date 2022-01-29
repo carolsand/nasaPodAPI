@@ -1,4 +1,6 @@
 import { fetch } from 'cross-fetch';
+import { sequelize } from "./database";
+
 const planetaryUrl = new URL(process.env.URL || 'https://api.nasa.gov/planetary/apod');
 const api_key = process.env.API_KEY;
 
@@ -30,10 +32,21 @@ async function getImage(url) {
 * */
 
 export default async function getPod(date) {
+  const db_pod = await sequelize.models.pod.findByPk(date);
+  if (db_pod) {
+    return db_pod;
+  }
+
   var url = new URL(planetaryUrl);
   if (date) {
-      url.searchParams.append('date', date);
+    url.searchParams.append('date', date);
   }
   url.searchParams.append('api_key', api_key);
-  return getImage(url);
+  const result = await getImage(url);
+  if (!result) {
+    return null;
+  }
+
+  await sequelize.models.pod.create(result);
+  return result
 };
