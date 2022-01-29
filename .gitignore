@@ -6,6 +6,7 @@
 .env.production.local
 .env
 .idea/
+.history/
 
 # Packages #
  ############
