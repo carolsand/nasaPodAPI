@@ -1,16 +1,18 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Sequelize, Model, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
 
-const userSchema = new Schema(
-  {
-    name: String,
-    email: String,
-    avatar: String,
-    googleId: String,
-  },
-  {
-    timestamps: true,
-  }
-);
+class User extends Model {}
+User.init({
+  username: DataTypes.STRING,
+  id: DataTypes.STRING,
+  email: DataTypes.STRING
+}, { sequelize, modelName: 'user' });
 
-module.exports = mongoose.model("User", userSchema);
+(async () => {
+  await sequelize.sync();
+  const user = await User.create({
+    username: '',
+    birthday: new Date()
+  });
+  console.log(user.toJSON());
+})();
