@@ -9,6 +9,7 @@ import "dotenv/config";
 import { v4 as uuidv4 } from "uuid";
 import models from "./models";
 import router from "./routes";
+import getPod from "./image_getter";
 
 /* --- Middleware ----- */
 app.use(express.json());
@@ -35,3 +36,9 @@ app.listen(port, () =>
 
 app.use('/', router);
 
+
+app.get('/testGetPod/:id?', (req, res) => {
+    getPod(req.params.id).then(imageData => {
+        res.send(imageData);
+    });
+});

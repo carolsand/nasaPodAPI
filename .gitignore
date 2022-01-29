@@ -116,3 +116,8 @@ yarn.lock
  ##############
 
 *.swp
+
+
+# Temp until going into prod #
+package-lock.json
+
