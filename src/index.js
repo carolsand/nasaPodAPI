@@ -14,6 +14,9 @@ import router from "./routes";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/static'));
+
 app.use((req, res, next) => {
   req.context = {
     models,
@@ -31,30 +34,4 @@ app.listen(port, () =>
 );
 
 app.use('/', router);
-
-/* ------- Data Section -----------  */
-
-// let users = {
-//   1: {
-//     id: "1",
-//     username: "Robin X",
-//   },
-//   2: {
-//     id: "2",
-//     username: "Carol S",
-//   },
-// };
-
-// let messages = {
-//   1: {
-//     id: "1",
-//     text: "Good Day",
-//     userId: "1",
-//   },
-//   2: {
-//     id: "2",
-//     text: "By World",
-//     userId: "2",
-//   },
-// };
 
