@@ -30,7 +30,7 @@ router.post("/users", (req, res) => {
 });
 
 router.delete("/user/:id", (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   return sequelize.models.user
     .findById(id)
     .then((user) => user.destroy({ force: true }))
@@ -42,7 +42,7 @@ router.delete("/user/:id", (req, res) => {
 });
 
 router.put("/user/:id", (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   return sequelize.models.user.findById(id).then((user) => {
     const { firstName, lastName } = req.body;
     return user
@@ -71,27 +71,28 @@ router.get("/pictures", async (req, res) => {
 router.get("/picture/:pictureId", (req, res) => {
   // TODO: Return all pictures, with URL and ID
   getPod(req.params.pictureId)
-    .then((pod) => {
-      res.send(pod);
+    .then((picture) => {
+      res.send(picture);
     })
     .catch(console.log);
 });
 
-router.get("/pods", (req, res) => {
-  return sequelize.models.pod
-    .findAll()
-    .then((pods) => res.send(pods))
+router.get("/picture/:pictureId", async (req, res) => {
+  const picture = await sequelize.models.pictureId;
+  return sequelize.models.pictureId
+    .findByPk(pictureId)
+    .then((pictureId) => res.send(pictureId))
     .catch((err) => {
       console.log("There was an error querying pods", JSON.stringify(err));
       return res.send(err);
     });
 });
 
-router.post("/pods", (req, res) => {
+router.post("/pictures", (req, res) => {
   const { id, stars } = req.body;
-  return sequelize.models.pod
+  return sequelize.models.picture
     .create({ id, stars })
-    .then((pod) => res.send(pod))
+    .then((picture) => res.send(pod))
     .catch((err) => {
       console.log(
         "***There was an error creating a rating",
@@ -101,11 +102,11 @@ router.post("/pods", (req, res) => {
     });
 });
 
-router.delete("/pod/:id", (req, res) => {
-  const id = parseInt(req.params.id);
+router.delete("/picture/pictureId", (req, res) => {
+  const id = req.params.pictureId;
   return sequelize.models.pod
-    .findById(id)
-    .then((pod) => pod.destroy({ force: true }))
+    .findByPk(id)
+    .then((id) => id.destroy({ force: true }))
     .then(() => res.send({ id }))
     .catch((err) => {
       console.log("***Error deleting pod", JSON.stringify(err));
@@ -113,10 +114,10 @@ router.delete("/pod/:id", (req, res) => {
     });
 });
 
-router.put("/pod/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  return sequelize.models.pod.findById(id).then((pod) => {
-    const { id, stars } = req.body;
+router.put("/picture/pictureId", (req, res) => {
+  const id = req.params.pictureId;
+  return sequelize.models.pictures.findByPk(id).then((id) => {
+    // const { id, stars } = req.body;
     return rating
       .update({ id })
       .then(() => res.send(pod))

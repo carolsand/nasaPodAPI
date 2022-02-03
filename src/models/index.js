@@ -1,3 +1,3 @@
-import "./pod";
+// import "./pod";
 import "./user";
-import "./rating";
+// import "./rating";
