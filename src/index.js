@@ -27,6 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
+/* Ports */
 const port = process.env.PORT || 8080;
 
 console.log(`port is ${port}`);
@@ -35,6 +36,7 @@ app.listen(port, () =>
   console.log(`NASA Pod API app listening on port ${port}!`)
 );
 
+/* Router */
 app.use('/api', router);
 
 
